@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 public class DrawPanel extends JPanel {
     BufferedImage [] step = new BufferedImage[4];
     TexturePaint [] texStep = new TexturePaint[4];
+    static int stepID = 0;
     
     public DrawPanel() {
         loadImages();
@@ -19,12 +20,16 @@ public class DrawPanel extends JPanel {
         try {
         	step[0] = ImageIO.read(this.getClass().getResource("stepImages/step 1.png"));
         	step[1] = ImageIO.read(this.getClass().getResource("stepImages/step 2.png"));
-//        	step[2] = ImageIO.read(this.getClass().getResource("stepImages/step 3.png"));
-//        	step[3] = ImageIO.read(this.getClass().getResource("stepImages/step 4.png"));
-//        	
+        	step[2] = ImageIO.read(this.getClass().getResource("stepImages/step 3.png"));
         } catch (IOException ex) {
         	System.out.println("Error loading some images...");
         }
+    }
+    
+    private void loadTextures(){
+    	texStep[0] = new TexturePaint(step[0], new Rectangle(0, 0, 960, 720));
+    	texStep[1] = new TexturePaint(step[1], new Rectangle(0, 0, 960, 720));
+    	texStep[2] = new TexturePaint(step[2], new Rectangle(0, 0, 960, 720));
     }
 
     @Override
@@ -32,20 +37,19 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
         draw(g);
     }
-//    
-//    public void paintComponent(Graphics g, int stepID) {
-//    	super.paintComponent(g);
-//        draw(g, stepID);
-//    }
 
+    public void drawStep(int stepID){
+    	this.stepID = stepID;
+    }
+    
     private void draw(Graphics g) {
-    	int stepID = 0;
         Graphics2D g2d = (Graphics2D) g;
-
-        TexturePaint texp = new TexturePaint(step[stepID], new Rectangle(0, 0, 960, 720));
- 
-        g2d.setPaint(texp);
-        g2d.fillRect(0, 0, 960, 720);
-
+        g2d.setPaint(texStep[stepID]);
+    	g2d.fillRect(0, 0, 960, 720);
+    	
+//        for (TexturePaint tp : texStep){
+//        	g2d.setPaint(tp);
+//        	g2d.fillRect(0, 0, 960, 720);
+//        }
     }
 }
