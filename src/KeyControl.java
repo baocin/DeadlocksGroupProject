@@ -12,6 +12,7 @@ public class KeyControl implements KeyListener {
 	//Monitor key presses on the left and right arrow keys, changing the image accordingly
 	@Override
 	public void keyPressed(KeyEvent e) {
+		Driver.running = false;
 		if(e.getKeyCode() == e.VK_LEFT){
 			UI.changeStep(UI.panel.stepID-1);
 		}else if (e.getKeyCode() == e.VK_RIGHT){
