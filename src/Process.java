@@ -18,6 +18,11 @@ public class Process {
 	}
 	
 	public void reserveResource(Resource r){
-		reservedResources.add(r);
+		if (r.isFree){
+			reservedResources.add(r);
+			r.reserve();
+		}else{
+			System.out.println("Cannot reserve resource named: " + r.name);
+		}
 	}
 }
