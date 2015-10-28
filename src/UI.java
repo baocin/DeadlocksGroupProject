@@ -1,35 +1,38 @@
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.Scanner;
-
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
+/*
+ * This class initiates the ui and configures variables like window size and title.
+ */
 public class UI extends JFrame {
-	BufferedImage [] step = new BufferedImage[4];
+	public static DrawPanel panel;
+	public static KeyControl keyControl;
+	public static int screenHeight = 720;
+	public static int screenWidth = 960;
 	
-	public UI() {
-        initUI();
-    }
-
+	public static void start() throws InterruptedException {
+		JFrame frame = new JFrame("Deadlocks Presentation");
+		panel = new DrawPanel();
+		keyControl = new KeyControl();
+		frame.getContentPane().add(panel);
+		frame.setSize(screenWidth, screenHeight);
+		frame.setVisible(true);
+		frame.addKeyListener(keyControl);
+	}
+		
 	
-    private void initUI() {
-    	DrawPanel dpnl = new DrawPanel();
-        add(dpnl);
-        
-        setTitle("Deadlock Example");
-        setSize(960, 800);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args){   	
-    	SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            	UI ex = new UI();
-                ex.setVisible(true);
-            }
-        });
+    public static void redraw(){
+    	panel.clear(panel.getGraphics());
+		panel.paintAll(panel.getGraphics());
+		System.out.println("Redrew window");
+	}
+    
+    public static void changeStep(int stepID){
+    	if (stepID < 0)
+    		panel.stepID = 2;
+    	else if (stepID >= 3)
+    		panel.stepID = 0;
+    	else
+    		panel.stepID = stepID;
+    	redraw();
     }
 }

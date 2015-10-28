@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
@@ -7,10 +8,10 @@ import javax.swing.JPanel;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class DrawPanel extends JPanel {
-    BufferedImage [] step = new BufferedImage[4];
-    TexturePaint [] texStep = new TexturePaint[4];
-    static int stepID = 0;
+public class DrawPanel extends Panel {
+    static BufferedImage [] step = new BufferedImage[4];
+    int stepID = 0;
+    final int numImages = 3;
     
     public DrawPanel() {
         loadImages();
@@ -26,30 +27,13 @@ public class DrawPanel extends JPanel {
         }
     }
     
-    private void loadTextures(){
-    	texStep[0] = new TexturePaint(step[0], new Rectangle(0, 0, 960, 720));
-    	texStep[1] = new TexturePaint(step[1], new Rectangle(0, 0, 960, 720));
-    	texStep[2] = new TexturePaint(step[2], new Rectangle(0, 0, 960, 720));
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        draw(g);
-    }
-
-    public void drawStep(int stepID){
-    	this.stepID = stepID;
+    public void paint(Graphics g) {
+    	super.paintComponents(g);
+		g.drawImage(step[stepID], 0, 0, null);
+	}
+    
+    public void clear(Graphics g){
+    	g.clearRect(0,0,UI.screenWidth, UI.screenHeight);
     }
     
-    private void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setPaint(texStep[stepID]);
-    	g2d.fillRect(0, 0, 960, 720);
-    	
-//        for (TexturePaint tp : texStep){
-//        	g2d.setPaint(tp);
-//        	g2d.fillRect(0, 0, 960, 720);
-//        }
-    }
 }
