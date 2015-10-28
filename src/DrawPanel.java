@@ -27,9 +27,9 @@ public class DrawPanel extends Panel {
     //Load all images from the disk on program load
     private void loadImages() {
         try {
-        	step[0] = ImageIO.read(this.getClass().getResource("stepImages/step 1.jpg"));
-        	step[1] = ImageIO.read(this.getClass().getResource("stepImages/step 2.jpg"));
-        	step[2] = ImageIO.read(this.getClass().getResource("stepImages/step 3.jpg"));
+        	step[0] = ImageIO.read(this.getClass().getResource("stepImages/step 1.png"));
+        	step[1] = ImageIO.read(this.getClass().getResource("stepImages/step 2.png"));
+        	step[2] = ImageIO.read(this.getClass().getResource("stepImages/step 3.png"));
         } catch (IOException ex) {
         	System.out.println("Error loading some images...");
         }
